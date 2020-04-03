@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>Clientes</title>
+  </head>
+  <body>
+    <h1>Clientes</h1>
+    
+    
+    <!-- TABLA DE CLIENTES -->
+    
+    <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Apellidos</th>
+      <th scope="col">Email</th>
+      <th scope="col">Telefono</th>
+      <th scope="col">Direccion</th>
+      <th scope="col">DNI</th>
+      <th scope="col">Fecha Nacimiento</th>
+      
+      <th class="text-danger">Eliminar</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr th:each="client: ${clientes}">
+		<td th:text="${client.idCliente}"></td>
+		<td th:text="${client.nombre}"></td>
+		<td th:text="${client.apellidos}"></td>
+		<td th:text="${client.email}"></td>
+		<td th:text="${client.telefono}"></td>
+		<td th:text="${client.direccion}"></td>
+		<td th:text="${client.dni}"></td>
+		<td th:text="${client.fechaNacimiento}"></td>
+		
+		<td><a class="btn btn-danger" th:href="@{/clientes/eliminar/{id}(id=${client.idCliente})}">Eliminar</a></td>
+   	</tr>
+  </tbody>
+</table>
+
+				    <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#crearCliente" >
+							Añadir Cliente
+					</button>
+
+	<!-- VENTANA MODAL PARA CREAR USUARIO -->
+<div class="modal fade" id="crearCliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		    <div class="modal-dialog" role="document">
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <h4 class="modal-title" id="exampleModalLabel">Nuevo Usuario</h4>
+		          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+		            <span aria-hidden="true">×</span>
+		          </button>
+		        </div>
+      
+      
+      <!-- Formulario de la ventana modal -->
+       <form action="#" th:action="@{/clientes/anadir}" th:object="${cliente}" method="post">
+			
+			<div class="modal-body">
+			      <div class="form-row">
+					<div class="form-group col-md-12">
+						<label for="nombre">Nombre</label>
+						<input type="text" th:field="*{nombre}"  placeholder="Nombre" class="form-control" id="nombre">
+					</div>
+		           </div>
+		      
+		           <div class="form-row">
+					<div class="form-group col-md-12">
+						<label for="apellidos">Apellidos</label>
+						<input type="text" th:field="*{apellidos}"  placeholder="Apellidos" class="form-control" id="apellidos">
+					</div>
+		           </div>
+		        
+		           <div class="form-row">
+					<div class="form-group col-md-12">
+						<label for="email">Email</label>
+						<input type="text" th:field="*{email}"  placeholder="Email" class="form-control" id="email">
+					</div>
+		           </div>
+		           
+		           <div class="form-row">
+					<div class="form-group col-md-12">
+						<label for="telefono">Teléfono</label>
+						<input type="text" th:field="*{telefono}"  placeholder="Teléfono" class="form-control" id="telefono">
+					</div>
+		           </div>
+		           
+		           <div class="form-row">
+					<div class="form-group col-md-12">
+						<label for="direccion">Dirección</label>
+						<input type="text" th:field="*{direccion}"  placeholder="Direccion" class="form-control" id="direccion">
+					</div>
+		           </div>
+		           
+		           <div class="form-row">
+					<div class="form-group col-md-12">
+						<label for="dni">DNI</label>
+						<input type="text" th:field="*{dni}"  placeholder="DNI" class="form-control" id="dni">
+					</div>
+		           </div>
+		           
+		           <div class="form-row">
+					<div class="form-group col-md-12">
+						<label for="nacimiento">Fecha de Nacimiento</label>
+						<input type="date" th:field="*{fechaNacimiento}"  placeholder="Fecha de Nacimeinto" class="form-control" id="nacimiento">
+					</div>
+		           </div>
+		 	</div>
+		 	
+		 	      <div class="modal-footer">
+ <input type="submit" value="Añadir" class="btn btn-primary float-right">
+ <button data-dismiss="modal" class="btn btn-outline-danger float-right mr-2" href="/clientes">Cancelar</button>
+      </div>
+		 </form>
+      
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>

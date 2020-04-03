@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>Vehículos</title>
+  </head>
+  <body>
+    <h1>Vehículos</h1>
+    
+    
+    <!-- TABLA DE CLIENTES -->
+    
+    <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Modelo</th>
+      <th scope="col">Cambio</th><!-- Hacer un th if -->
+      <th scope="col">Matrícula</th>
+      <th scope="col">Llantas</th>
+      <th scope="col">Cilindrada</th>
+      <th scope="col">Caballos</th>
+      <th scope="col">Color</th>
+      <th scope="col">Propietario</th>
+      
+      <th class="text-danger">Eliminar</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr th:each="vehi: ${vehiculos}">
+		<td th:text="${vehi.idVehiculo}"></td>
+		<td th:text="${vehi.modelo}"></td>
+		
+		<td>
+		<span th:if="${vehi.automatico}">Automatico</span>
+		<span th:unless="${vehi.automatico}">Manual</span>
+		</td>
+		<td th:text="${vehi.cilindrada}"></td>
+		<td th:text="${vehi.llantas}"></td>
+		<td th:text="${vehi.cilindrada}"></td>
+		<td th:text="${vehi.caballos}"></td>
+		<td th:text="${vehi.color}"></td>
+		 
+		 <td th:text="${vehi?.cliente?.idCliente}" ></td>
+		
+		
+		
+		
+		<!-- <span th:if="${vehi.cliente.idCliente}" >Esta en Stock</span> -->
+		<!-- <span th:unless="${vehi.cliente.idCliente  == 'null'}" >Esta vendido </span>-->
+		
+		<!-- <span th:if="${vehi.cliente.idCliente  != 'null'}" >Esta vendido </span> --> 
+		
+			
+				 
+	<!-- <td  th:text="${vehi.cliente.idCliente}">  --> 
+				   	
+				
+	</td>
+	
+		
+		
+		<td><a class="btn btn-danger" th:href="@{/vehiculo/eliminar/{id}(id=${vehi.idVehiculo})}">Eliminar</a></td>
+   	</tr>
+  </tbody>
+</table>
+
+				    <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#crearCliente" >
+							Añadir Vehículo
+					</button>
+
+	<!-- VENTANA MODAL PARA CREAR USUARIO -->
+<div class="modal fade" id="crearCliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		    <div class="modal-dialog" role="document">
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <h4 class="modal-title" id="exampleModalLabel">Nuevo Vehículo</h4>
+		          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+		            <span aria-hidden="true">×</span>
+		          </button>
+		        </div>
+      
+      
+      <!-- Formulario de la ventana modal -->
+       <form action="#" th:action="@{/vehiculos/anadir}" th:object="${vehiculo}" method="post">
+			
+			<div class="modal-body">
+			      <div class="form-row">
+					<div class="form-group col-md-12">
+						<label for="modelo">Modelo</label>
+						<input type="text" th:field="*{modelo}"  placeholder="Modelo" class="form-control" id="modelo">
+					</div>
+		           </div>
+		      
+		           <div class="form-row">
+					<div class="form-group col-md-12">
+						<p>Cambio</p>
+						
+						<input type="radio" th:field="*{automatico}" id="automatico" name="cambio" th:value="1">
+ 						<label for="automatico">Automático</label><br>
+  						<input type="radio" th:field="*{automatico}" id="manual" name="cambio" th:value="0">
+  						<label for="manual">Manual</label><br>
+					</div>
+		           </div>
+		        
+		           <div class="form-row">
+					<div class="form-group col-md-12">
+						<label for="matricula">Matrícula</label>
+						<input type="text" th:field="*{matricula}"  placeholder="Matícula" class="form-control" id="matricula">
+					</div>
+		           </div>
+		           
+		           <div class="form-row">
+					<div class="form-group col-md-12">
+						<label for="llantas">LLantas</label>
+						<input type="text" th:field="*{llantas}"  placeholder="Llantas" class="form-control" id="llantas">
+					</div>
+		           </div>
+		           
+		           <div class="form-row">
+					<div class="form-group col-md-12">
+						<label for="cilindrada">Cilindrada</label>
+						<input type="number" th:field="*{cilindrada}"   class="form-control" id="cilindrada">
+					</div>
+		           </div>
+		           
+		           <div class="form-row">
+					<div class="form-group col-md-12">
+						<label for="caballos">Caballos</label>
+						<input type="number" th:field="*{caballos}" class="form-control" id="caballos">
+					</div>
+		           </div>
+		           
+		           <div class="form-row">
+					<div class="form-group col-md-12">
+						<label for="color">Color</label>
+						<input type="text" th:field="*{color}" class="form-control" id="color">
+					</div>
+		           </div>
+		           
+		          <div class="form-row">
+
+					    <div class="form-group col-md-12">
+					      <label for="propietarios">Propietario</label>
+							<ul>
+							  <li th:each="client: ${clientes}">
+							    <input 
+							    	type="radio" 
+							    	name="propietarios" 
+							        th:text="${client.dni}"
+							        th:field="*{cliente.idCliente}"
+							        th:value="${client.idCliente}"
+							    />
+							  </li>
+							  
+							  
+							  <li>
+							  
+							  <input 
+							    type="radio" 
+							    th:text="Nadie"
+							    name="propietarios" 
+							    th:field="*{cliente.idCliente}"
+							    th:value="-1"
+							    />							    
+							  </li>
+							</ul>					      
+						  </div>
+	                  </div>	
+	                  
+		 	</div>
+		 	
+		 	      <div class="modal-footer">
+ <input type="submit" value="Añadir" class="btn btn-primary float-right">
+ <button data-dismiss="modal" class="btn btn-outline-danger float-right mr-2" href="/clientes">Cancelar</button>
+      </div>
+		 </form>
+      
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>
